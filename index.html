@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles\main.css">
+    <script src="https://kit.fontawesome.com/0a57beecd2.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dangrek&display=swap" rel="stylesheet">
+    <title>World Countries Data</title>
+</head>
+<body>
+    <header>
+        <div id="first-header-container">
+            <h1>World Countries Data</h1>
+            <p id="current-countries"></p>
+            <i id="italic-search-stats"><span id="satisfied-criteria-num"></span></i>
+        </div>
+        <div id="second-header-container">
+            <input id="country-search" type="text" placeholder="Search countries by name, city and languages">
+            <div id="button-option-container">
+                <button id="name-sort">NAME <i class="sort-icon fa-solid" id="name-icon"></i></button>
+                <button id="capital-sort">CAPITAL <i class="sort-icon fa-solid" id="capital-icon"></i></button>
+                <button id="population-sort">POPULATION <i class="sort-icon fa-solid"  id="population-icon"></i></button>
+                <i id="statistic-icon" class="fa-solid fa-chart-simple"></i>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div id="countries-info-container">
+        </div>
+    </main>
+    <script src="scripts\main.js" type="module"></script>
+</body>
+</html>
