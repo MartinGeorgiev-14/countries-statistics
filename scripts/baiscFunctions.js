@@ -19,7 +19,7 @@ export function createBaseElement() {
         changeColor(color){
             this.element.style.color = color
         },
-        changeStyle(styleType, value){
+        setStyle(styleType, value){
             this.element.style[styleType] = value
         },
         setAttribute(attribute, value){
@@ -27,6 +27,9 @@ export function createBaseElement() {
         },
         getValue(){
             return this.element.value
+        },
+        setValue(value){
+            this.element.value = value
         }
     }
 

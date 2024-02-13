@@ -6,7 +6,7 @@ const elementManager = basic.createBaseElement()
 
 // const icons = elementManager.querySelectorAll('.sort-icon')
 
-let nameBool = false
+let varBool = false
 let capitalBool = false
 let populationBool = false
 
@@ -14,56 +14,56 @@ export function sortExecuter(operation){
     const icons = elementManager.querySelectorAll('.sort-icon')
    
     // if(operation === "name"){
-    //     operationChecker(nameBool)
+    //     operationChecker(varBool)
     // }
     // else if(operation === "capital"){
     //     operationChecker(capitalBool)
     // }
-    console.log(nameBool, capitalBool, populationBool)
+    console.log(varBool, capitalBool, populationBool)
     if(operation === "name"){
-        if(nameBool){
+        if(varBool){
             iconRemover(icons.getAllElements())
             icons.getCertainElement(0).classList.add("fa-sort-up")
-            nameBool = false
-            sortBoolReset(nameBool)
-            nameSort(display.currentData)
+            varBool = false
+            sortBoolReset(varBool)
+            sorter("name", "asc")
             
         }
         else{
             iconRemover(icons.getAllElements())
             icons.getCertainElement(0).classList.add("fa-sort-down")
-            nameBool = true
-            nameSort(display.currentData)
+            varBool = true
+            sorter("name", "desc")
         }
     }
     else if(operation === "capital"){
         if(capitalBool){
             iconRemover(icons.getAllElements())
-            icons.getCertainElement(1).classList.add("fa-sort-down")
+            icons.getCertainElement(1).classList.add("fa-sort-up")
             capitalBool = false
-            console.log("exec desc capital")
             sortBoolReset(capitalBool)
+            sorter("capital", "asc")
         }
         else{
             iconRemover(icons.getAllElements())
-            icons.getCertainElement(1).classList.add("fa-sort-up")
+            icons.getCertainElement(1).classList.add("fa-sort-down")
             capitalBool = true
-            console.log("exec asc capital")
+            sorter("capital", "desc")
         }
     }
     else{
         if(populationBool){
             iconRemover(icons.getAllElements())
-            icons.getCertainElement(2).classList.add("fa-sort-down")
+            icons.getCertainElement(2).classList.add("fa-sort-up")
             populationBool = false
-            console.log("exec desc population", populationBool)
             sortBoolReset(populationBool)
+            sorter("population", "asc")
         }
         else{
             iconRemover(icons.getAllElements())
-            icons.getCertainElement(2).classList.add("fa-sort-up")
+            icons.getCertainElement(2).classList.add("fa-sort-down")
             populationBool = true
-            console.log("exec asc population", populationBool)
+            sorter("population", "desc")
         }
     }
 }
@@ -95,20 +95,20 @@ function sortfunc(data){
 
 function sortBoolReset(bool){
     switch(bool){
-        case nameBool:
+        case varBool:
             capitalBool = false
             populationBool = false
             break
         case capitalBool:
-            nameBool = false
+            varBool = false
             populationBool = false
             break
         case populationBool:
-            nameBool = false;
+            varBool = false;
             capitalBool = false;
             break
         default:
-            nameBool = false
+            varBool = false
             capitalBool = false
             populationBool = false
             break
@@ -118,7 +118,7 @@ function sortBoolReset(bool){
 // function iconButtonChecker(boolVar){
     
 //     const icons = elementManager.querySelectorAll('.sort-icon')
-//     if(boolVar === nameBool){
+//     if(boolVar === varBool){
 //         return icons.getCertainElement(0)
 //     }
 //     else if(boolVar === capitalBool){
@@ -155,7 +155,7 @@ export function countryEnumerator(array){
     return countries
 }
 
-export function searchByCountry(value, data = display.currentData){
+export function searchByCountry(value, data = dataC.dataCountries){
     const regex = new RegExp(`\\b${value}\\w*\\b`, 'i')
     let length = 0
     if(value){
@@ -175,24 +175,53 @@ export function searchByCountry(value, data = display.currentData){
     return length
 }
 
-function nameSort(data){
-    display.infoDataDisplay(data.sort().reverse())
+function sorter(type, mode, data = display.currentData){
+    const sortedData = data.sort((a,b) => {
+        const varA = a[type]
+        const varB = b[type]
+
+        if(mode === "desc"){
+            if(varA < varB){
+                return 1
+            }
+            if(varA > varB){
+                return -1
+            }
+        }
+        if(mode === "asc"){
+            if(varA < varB){
+                return -1
+            }
+            if(varA > varB){
+                return 1
+            }
+        }
+
+        return 0
+    })
+
+   display.infoDataDisplay(sortedData)
 }
 
+export function totalWorldPopulationCalculator(data = dataC.dataCountries){
+    let totalNumber = 0
 
-export function sortData(type, data){
-console.log(type)
-    switch(type){
-        case "nameDesc":
-            display.infoDataDisplay(data.sort().reverse())
-            break;
-        case "nameAsc":
-            display.infoDataDisplay(data.sort())
-            break;
-    }
+    data.forEach(element => {
+        totalNumber += element.population
+    })
 
+    return totalNumber
+}
 
-    // const sortedData = data.sort().reverse()
-    // console.log(sortedData)
-    // display.infoDataDisplay(sortedData)
+export function checkForInvalidInput(input){
+    const regex = /[0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/\-=|]+/
+    return regex.test(input)
+}
+
+export function sortCountriesDesc(data = dataC.dataCountries, number = 9, type = "population"){
+    return data.sort((a,b) => b[type] - a[type]).filter((element,index) => {
+        if(index < number){
+            return element
+        }
+    })
 }

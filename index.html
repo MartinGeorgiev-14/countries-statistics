@@ -15,7 +15,7 @@
         <div id="first-header-container">
             <h1>World Countries Data</h1>
             <p id="current-countries"></p>
-            <i id="italic-search-stats"><span id="satisfied-criteria-num"></span></i>
+            <i id="italic-search-stats">.<span id="satisfied-criteria-num"></span></i>
         </div>
         <div id="second-header-container">
             <input id="country-search" type="text" placeholder="Search countries by name, city and languages">
@@ -23,12 +23,21 @@
                 <button id="name-sort">NAME <i class="sort-icon fa-solid" id="name-icon"></i></button>
                 <button id="capital-sort">CAPITAL <i class="sort-icon fa-solid" id="capital-icon"></i></button>
                 <button id="population-sort">POPULATION <i class="sort-icon fa-solid"  id="population-icon"></i></button>
-                <i id="statistic-icon" class="fa-solid fa-chart-simple"></i>
+                <a id="statistic-icon" class="fa-solid fa-chart-simple" href="#countries-statistics-container"></a>
             </div>
         </div>
     </header>
     <main>
         <div id="countries-info-container">
+        </div>
+        <div id="statistics-buttons-container">
+            <div id="statistics-buttons">
+                <button>POPULATION</button>
+                <button>LANGUAGES</button>
+            </div>
+            <p id="statisitcs-text">World Population</p>
+        </div>
+        <div id="countries-statistics-container">
         </div>
     </main>
     <script src="scripts\main.js" type="module"></script>

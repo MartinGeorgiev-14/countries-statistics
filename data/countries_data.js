@@ -13,17 +13,6 @@ export const dataCountries = [
 			"area": 652230
 	},
 	{
-			"name": "Åland Islands",
-			"capital": "Mariehamn",
-			"languages": [
-					"Swedish"
-			],
-			"population": 28875,
-			"flag": "https://flagcdn.com/ax.svg",
-			"region": "Europe",
-			"area": 1580
-	},
-	{
 			"name": "Albania",
 			"capital": "Tirana",
 			"languages": [

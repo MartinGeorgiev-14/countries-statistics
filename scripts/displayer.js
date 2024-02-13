@@ -4,6 +4,7 @@ import * as dataC from "../data/countries_data.js"
 
 const elementManager = basic.createBaseElement() 
 const countriesInfoContainer = elementManager.getElementById("countries-info-container")
+const countriesStatisticsContainer = elementManager.getElementById("countries-statistics-container")
 export let currentData = dataC.dataCountries
 
 
@@ -40,6 +41,48 @@ export function infoDataDisplay(data = dataC.dataCountries, parentEl = countries
         population.appendTo(countryStats.getElement())
         countryStats.appendTo(infoContainer.getElement())
         infoContainer.appendTo(parentEl)
+    })
+
+    statisticsDataDisplay(data === dataC.dataCountries)
+}
+
+function statisticsDataDisplay(worldCheck, data = currentData){
+    let filteredCountries 
+    let highestPopulation 
+
+    if(worldCheck){
+        highestPopulation = {
+            name: "World",
+            population: specific.totalWorldPopulationCalculator()
+        }
+        filteredCountries = specific.sortCountriesDesc()
+        console.log(specific.sortCountriesDesc())
+    }else{
+        filteredCountries = specific.sortCountriesDesc(currentData, 10)
+        highestPopulation = filteredCountries[0]
+    }
+
+    filteredCountries.forEach(element => {
+        const countryStats = elementManager.createElement("div")
+        const countryName = elementManager.createElement("p")
+        const outerBar = elementManager.createElement("div")
+        const innerBar = elementManager.createElement("div")
+        const population = elementManager.createElement("p")
+
+        countryStats.addClass("country-stats-row")
+        outerBar.addClass("outer-bar")
+        innerBar.addClass("inner-bar")
+
+        countryName.setInnerHTML(element.name)
+        innerBar.setStyle("width", "20%")
+        population.setInnerHTML(element.population.toLocaleString('en-US'))
+
+        innerBar.appendTo(outerBar.getElement())
+        countryName.appendTo(countryStats.getElement())
+        outerBar.appendTo(countryStats.getElement())
+        population.appendTo(countryStats.getElement())
+        countryStats.appendTo(countriesStatisticsContainer.getElement())
 
     })
+
 }
