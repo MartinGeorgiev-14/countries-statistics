@@ -3,6 +3,7 @@ import * as specific from "./appSpecific.js"
 import * as data from "../data/countries_data.js"
 import * as display from "./displayer.js"
 
+
 const rootStyles = getComputedStyle(document.documentElement)
 const mainColor = rootStyles.getPropertyValue("--main-color")
 
@@ -20,13 +21,15 @@ const buttonOptionContainer = elementManager.getElementById("button-option-conta
 
 //main elements
 const countriesInfoContainer = elementManager.getElementById("countries-info-container")
+const statisticsButtons = elementManager.getElementById("statistics-buttons")
 
+//Shows the total count of countries in the dom
 currentCountries.setInnerHTML(`Currently, we have ${data.dataCountries.length} countries`)
+//Starting function that displays countries and statistics
 display.infoDataDisplay()
 
-console.log(specific.totalWorldPopulationCalculator().toLocaleString('en-US'))
-
-buttonOptionContainer.getElement().addEventListener("click", function(el){
+//Event listener that sorts the countries info container in asc or desc based on the button
+buttonOptionContainer.addEventListener("click", function(el){
     
     if(el.target.id === "name-sort"){
         specific.sortExecuter("name")
@@ -42,15 +45,16 @@ buttonOptionContainer.getElement().addEventListener("click", function(el){
     }
 })
 
-
-countrySearch.getElement().addEventListener("keyup", function(){
+//Event listener that validates if the entered value is correct, updates the paragraph with number of found countries based on criteria
+//and removes all applied sorts on countries info container
+countrySearch.addEventListener("keyup", function(){
 
    if(specific.checkForInvalidInput(countrySearch.getValue())){
         alert("Please enter only letters")
         countrySearch.setValue("")
         return
    }
-
+    //Variable that shows how many countries are found
     const length = specific.searchByCountry(countrySearch.getValue())
     specific.iconRemover(icons.getAllElements())
 
@@ -68,3 +72,10 @@ countrySearch.getElement().addEventListener("keyup", function(){
     }
     
 })
+
+//Event listener that updates the statistics based on which clicked button 
+statisticsButtons.addEventListener("click", function(button){
+  const target = button.target.innerText.toLowerCase()
+  display.statisticsDataDisplay(undefined, target, display.currentData)
+})
+

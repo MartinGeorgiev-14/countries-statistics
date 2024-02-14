@@ -1,5 +1,6 @@
-export function createBaseElement() {
 
+export function createBaseElement() {
+    //Common functions for individual elements
     const elementBase = {
         getElement() {
             return this.element;
@@ -30,9 +31,13 @@ export function createBaseElement() {
         },
         setValue(value){
             this.element.value = value
+        },
+        addEventListener(event, func){
+            this.element.addEventListener(event, func)
         }
     }
 
+    //Common functions for working with arrays
     const querySelectorAllBase = {
         getAllElements(){
             return this.elements
@@ -42,6 +47,7 @@ export function createBaseElement() {
         }   
     }
 
+    //Functions for creating, getting and manipulating elements
     return {
         createElement(tagName) {
             return Object.assign(Object.create(elementBase), {
@@ -63,7 +69,7 @@ export function createBaseElement() {
 
     };
 }
-
+//Functions that removes all child elements out of a parent element
 export function childRemover(parent){
     while(parent.firstChild){
         parent.removeChild(parent.firstChild)
